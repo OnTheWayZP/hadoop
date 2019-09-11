@@ -1,8 +1,6 @@
 package com.zapoul.hadoop;
 
 import org.apache.hadoop.fs.FileSystem;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -25,10 +23,11 @@ public class HadoopConfig {
 
     @Bean("fileSystem")
     public FileSystem createFs(){
+        System.setProperty("hadoop.home.dir", "H:\\hadoop-2.7.2");
         //读取配置文件
         org.apache.hadoop.conf.Configuration conf = new org.apache.hadoop.conf.Configuration();
         //conf.set("fs.defalutFS", "hdfs://192.168.169.128:9000");
-        //设置副本数，默认1
+        //设置副本数，默认3
         conf.set("dfs.replication", "1");
         //指定访问hdfs的客户端身份
         //fs = FileSystem.get(new URI("hdfs://192.168.169.128:9000/"), conf, "root");
