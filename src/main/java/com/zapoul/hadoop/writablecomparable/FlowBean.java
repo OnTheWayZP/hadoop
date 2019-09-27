@@ -1,6 +1,7 @@
-package com.zapoul.hadoop.flow;
+package com.zapoul.hadoop.writablecomparable;
 
 import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -12,7 +13,7 @@ import java.io.IOException;
  * Date:2019/9/24
  * Time:9:04
  */
-public class FlowBean implements Writable {
+public class FlowBean implements Writable, WritableComparable<FlowBean> {
 
     private long upFlow;
 
@@ -82,8 +83,13 @@ public class FlowBean implements Writable {
     @Override
     public String toString() {
         return
-                upFlow + "\t" +
-                        downFlow + "\t" +
-                        sumFlow + "\t";
+                "upFlow=" + upFlow + "\t" +
+                        "downFlow=" + downFlow + "\t" +
+                        "sumFlow=" + sumFlow + "\t";
+    }
+
+    @Override
+    public int compareTo(FlowBean o) {
+        return Long.compare(o.sumFlow, this.sumFlow);
     }
 }
